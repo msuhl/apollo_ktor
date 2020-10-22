@@ -13,9 +13,9 @@ class UserController {
 
     fun getUserOne():String{
 
-        val query = TestQuery()
+//        val query = TestQuery()
         val response = try {
-            apolloClient.query(userOne).toDeferred().await()
+//            apolloClient.query(userOne).toDeferred().await()
         } catch (e: ApolloException) {
             print("Query catched")
         }
