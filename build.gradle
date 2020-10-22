@@ -31,6 +31,11 @@ repositories {
     maven { url 'https://kotlin.bintray.com/ktor' }
 }
 
+apollo {
+    // instruct the compiler to generate Kotlin models
+    generateKotlinModels = true
+}
+
 dependencies {
     //Apollo
     implementation 'com.apollographql.apollo:apollo-runtime:2.2.2'
