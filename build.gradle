@@ -1,19 +1,23 @@
 buildscript {
     repositories {
+        maven { url = uri("https://dl.bintray.com/apollographql/android/") }
         jcenter()
     }
     
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.apollographql.apollo:apollo-gradle-plugin:$apolloVersion"
     }
 }
 
 apply plugin: 'kotlin'
 apply plugin: 'application'
+apply plugin: "com.apollographql.apollo"
 
 group 'com.example'
 version '0.0.1'
 mainClassName = "io.ktor.server.netty.EngineMain"
+
 
 sourceSets {
     main.kotlin.srcDirs = main.java.srcDirs = ['src']
@@ -28,7 +32,26 @@ repositories {
     maven { url 'https://kotlin.bintray.com/ktor' }
 }
 
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+apollo {
+    // instruct the compiler to generate Kotlin models
+    generateKotlinModels = true
+    graphqlSourceDirectorySet.srcDir("src/graphql")
+    graphqlSourceDirectorySet.include("**/*.graphql")
+    graphqlSourceDirectorySet.exclude("**/schema.graphql")
+}
+
 dependencies {
+    //Apollo
+    implementation 'com.apollographql.apollo:apollo-runtime:2.2.2'
+    implementation 'com.apollographql.apollo:apollo-coroutines-support:2.2.2'
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "io.ktor:ktor-server-netty:$ktor_version"
     implementation "ch.qos.logback:logback-classic:$logback_version"

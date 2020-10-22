@@ -1,5 +1,6 @@
 package com.example.service
 
+import com.example.controller.UserController
 import io.ktor.application.*
 import io.ktor.locations.*
 import io.ktor.response.*
@@ -14,6 +15,7 @@ class GraphqlPath()
 @KtorExperimentalLocationsAPI
 fun Route.graphql() {
     get<GraphqlPath> {
-        call.respond("Hej Svend")
+        val user = UserController().getUserOne()
+        call.respond("User er $user")
     }
 }
