@@ -34,7 +34,7 @@ repositories {
 apollo {
     // instruct the compiler to generate Kotlin models
     generateKotlinModels = true
-    graphqlSourceDirectorySet.srcDir("src/main/graphql")
+    graphqlSourceDirectorySet.srcDir("src/graphql")
     graphqlSourceDirectorySet.include("**/*.graphql")
     graphqlSourceDirectorySet.exclude("**/schema.graphql")
 }

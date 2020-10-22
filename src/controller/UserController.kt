@@ -1,6 +1,7 @@
 package com.example.controller
 
 import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo.exception.ApolloException
 
 class UserController {
     lateinit var apolloClient: ApolloClient
@@ -11,6 +12,13 @@ class UserController {
     }
 
     fun getUserOne():String{
-        return "Svend"
+
+        val query = TestQuery()
+        val response = try {
+            apolloClient.query(userOne).toDeferred().await()
+        } catch (e: ApolloException) {
+            print("Query catched")
+        }
+        return response.toString()
     }
 }
